@@ -56,16 +56,16 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "clearall": [
+            "php artisan view:clear",
+            "php artisan route:clear",
+            "php artisan config:clear",
+            "php artisan cache:clear",
+            "php artisan optimize:clear",
+            "composer dump-autoload"
         ]
     },
-    "clearall": [
-        "php artisan view:clear",
-        "php artisan route:clear",
-        "php artisan config:clear",
-        "php artisan cache:clear",
-        "php artisan optimize:clear",
-        "composer dump-autoload"
-    ],
     "extra": {
         "laravel": {
             "dont-discover": []
