@@ -7,11 +7,12 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
+        // EAV table for products
         Schema::create('product_attributes', function (Blueprint $table) {
             $table->id();
-
-
-
+            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
+            $table->string('attribute')->nullable();
+            $table->string('value')->nullable();
             $table->timestamps();
         });
     }
