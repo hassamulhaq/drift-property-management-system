@@ -36,3 +36,12 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+require __DIR__.'/web/product.php';
+require __DIR__.'/web/menu.php';
+require __DIR__.'/web/media.php';
+require __DIR__.'/web/shop.php';
+require __DIR__.'/web/category.php';
+require __DIR__.'/web/collection.php';
+require __DIR__.'/web/customer.php';
