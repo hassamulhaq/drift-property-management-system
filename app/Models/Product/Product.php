@@ -2,9 +2,13 @@
 
 namespace App\Models\Product;
 
+use App\Interfaces\ProductInterface;
+use App\Models\Global\Category\Category;
+use App\Models\Global\Collection\Collection;
+use App\Models\Product\ProductAttribute\ProductAttribute;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Product extends Model implements ProductInterface
 {
     protected $casts = [
         'type' => 'string',
@@ -61,4 +65,36 @@ class Product extends Model
 
     const SKU_PREFIX = 'sku_';
 
+
+    public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function collections(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Collection::class, 'product_collection');
+    }
+
+    public function attributes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ProductAttribute::class);
+    }
+
+    public function thumbnail(): \Illuminate\Database\Eloquent\Relations\MorphOne
+    {
+        return $this->morphOne(ProductProperty::class);
+    }
+
+    // used in factory
+
+    public function publishedProductProperty(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->productProperty()->where('status', Product::PRODUCT_STATUS['published']);
+    }
+
+    public function productProperty(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(ProductProperty::class, 'product_id');
+    }
 }
