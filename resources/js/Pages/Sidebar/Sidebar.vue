@@ -1,11 +1,11 @@
 <template>
         <!-- Sidebar -->
-        <aside class="border">
+        <aside class="">
             <!-- Sidebar backdrop (mobile only) -->
             <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200 opacity-0 pointer-events-none" :class="sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'" aria-hidden="true"></div>
 
             <!-- Sidebar -->
-            <div id="sidebar" class="border-r border-r-2 border-r-gray-200 bg-white flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64 lg:w-20 lg:sidebar-expanded:!w-64 2xl:!w-64 shrink-0 py-4 px-3 transition-all duration-200 ease-in-out -translate-x-64">
+            <div id="sidebar" class="flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64 lg:w-20 lg:sidebar-expanded:!w-64 2xl:!w-64 shrink-0 py-4 px-3 transition-all duration-200 ease-in-out -translate-x-64">
 
                 <!-- Sidebar header -->
                 <div class="flex justify-between mb-0.5 pr-3 sm:px-2">

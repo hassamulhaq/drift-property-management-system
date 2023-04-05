@@ -1,12 +1,12 @@
 <template>
-    <AppLayout title="Product">
+    <DriftAppLayout title="Product">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Products
             </h2>
         </template>
 
-        <div class="relative overflow-x-auto sm:rounded-lg px-2">
+        <div class="relative overflow-x-auto sm:rounded-lg px-2 p-4 sm:p-8 bg-white shadow">
             <div class="flex items-center justify-between py-4 bg-white dark:bg-gray-800">
                 <div>
                     <Dropdown width="60">
@@ -134,11 +134,10 @@
         </div>
 
 
-    </AppLayout>
+    </DriftAppLayout>
 </template>
 
 <script>
-import AppLayout from "@/Layouts/AppLayout.vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
@@ -148,17 +147,18 @@ import { AgGridVue } from "ag-grid-vue3";  // the AG Grid Vue Component
 import { reactive, onMounted, ref } from "vue";
 
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
-import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
+import "ag-grid-community/styles/ag-theme-alpine.css";
+import DriftAppLayout from "@/Layouts/DriftAppLayout.vue"; // Optional theme CSS
 
 export default {
     name: "Show",
     components: {
+        DriftAppLayout,
         SelectProductType,
         SecondaryButton,
         PrimaryButton,
         DropdownLink,
         Dropdown,
-        AppLayout,
         AgGridVue
     },
     props: {
