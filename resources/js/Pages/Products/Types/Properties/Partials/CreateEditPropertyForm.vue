@@ -752,13 +752,13 @@
         <!-- END Stock & Inventory -->
 
         <!-- submit -->
-        <div class="lg:flex gap-3 mb-3 mt-20">
+        <div class="lg:flex gap-3 mb-3 mt-20 md:fixed md:bottom-1 md:right-8">
             <div class="w-full bg-white shadow-none sm:rounded-lg border rounded-lg p-4">
-                <div class="mb-6">
-                    <h1 class="text-2xl text-grey-90">Publish/Draft</h1>
+                <div class="mb-4">
+                    <h2 class="text-2xl text-grey-90">Publish/Draft</h2>
                 </div>
                 <div class="mb-2 mt-2">
-                    <input type="submit" value="Publish" class="flex items-center justify-center cursor-pointer bg-indigo-700 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-indigo-50 text-white font-semibold h-12 px-6 rounded-lg w-full sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400">
+                    <input type="submit" value="Publish" class="flex items-center justify-center cursor-pointer bg-indigo-700 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-indigo-50 text-white font-semibold h-10 px-6 rounded-lg w-full sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400">
                 </div>
             </div>
         </div>
@@ -953,7 +953,7 @@ export default {
                     },
                     onSuccess: (page) => {
                         console.log('onSuccess', page)
-                        console.log(page.props?.flash?.response?.message)
+                        console.log(page.props?.flash)
                         if (page.props?.flash?.response?.success === true) {
                             alert.value.show = true
                             alert.value.title = 'Response'

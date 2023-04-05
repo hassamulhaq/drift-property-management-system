@@ -96,11 +96,10 @@ class ProductPropertyService
                     $productProperty->addMedia(storage_path(Constant::MEDIA_TMP_PATH . $file))->toMediaCollection('gallery');
                 }
             }
+            \DB::commit();
 
             // send mail notification
             //\Event::dispatch(new ProductCreatedEvent($product));
-
-            \DB::commit();
             $response = [
                 'success' => true,
                 'message' => 'Task Completed!',
@@ -118,7 +117,6 @@ class ProductPropertyService
                     'errors' => $e->getMessage(),
                     'status_code' => $e->getCode(),
                     'reload' => false,
-                    'type' => 'try_catch exception',
                 ]
             ];
         }
