@@ -30,7 +30,10 @@ class ProductsController extends Controller
 
     public function create()
     {
-        return Inertia::render('Products/Show');
+
+        return Inertia::render('Products/Show', [
+            'products' => [],
+        ]);
     }
 
     public function store(ProductStoreRequest $request)
