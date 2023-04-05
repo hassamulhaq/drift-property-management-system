@@ -78,16 +78,16 @@
                             </div>
                         </div>
                         <ul class="overflow-y-auto px-3 pb-3 h-48 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownCategoriesButton">
-<!--                            @if($categories)-->
-<!--                            @foreach($categories as $type)-->
-<!--                            <li>-->
-<!--                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">-->
-<!--                                    <input id="label-{{$type->id}}" type="checkbox" value="{{ $type->id }}" name="categories[]" class="w-4 h-4 text-indigo-600 bg-gray-100 rounded border-gray-300 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">-->
-<!--                                    <label for="label-{{$type->id}}" class="ml-2 mb-0 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{ $type->title }}</label>-->
-<!--                                </div>-->
-<!--                            </li>-->
-<!--                            @endforeach-->
-<!--                            @endif-->
+                            <!--                            @if($categories)-->
+                            <!--                            @foreach($categories as $type)-->
+                            <!--                            <li>-->
+                            <!--                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">-->
+                            <!--                                    <input id="label-{{$type->id}}" type="checkbox" value="{{ $type->id }}" name="categories[]" class="w-4 h-4 text-indigo-600 bg-gray-100 rounded border-gray-300 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">-->
+                            <!--                                    <label for="label-{{$type->id}}" class="ml-2 mb-0 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{ $type->title }}</label>-->
+                            <!--                                </div>-->
+                            <!--                            </li>-->
+                            <!--                            @endforeach-->
+                            <!--                            @endif-->
                         </ul>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
 
                 <div class="mb-4">
                     <span class="block mb-0.5 text-sm font-medium text-gray-900 dark:text-gray-300">Add Attributes</span>
-<!--                    <x-product-attribute-modal></x-product-attribute-modal>-->
+                    <!--                    <x-product-attribute-modal></x-product-attribute-modal>-->
                 </div>
             </div>
         </div>
@@ -735,18 +735,18 @@
                 <div class="mb-6">
                     <h2 class="text-2xl text-grey-90">Description</h2>
                 </div>
-                    <div class="relative mb-3">
-                        <InputLabel for="description" value="Description" />
-                        <TextareaInput
-                            id="description"
-                            ref="description"
-                            rows="7"
-                            v-model="propertyData.description"
-                            type="text"
-                            class="mt-1 block w-full"
-                            autocomplete="description"
-                        />
-                    </div>
+                <div class="relative mb-3">
+                    <InputLabel for="description" value="Description" />
+                    <TextareaInput
+                        id="description"
+                        ref="description"
+                        rows="7"
+                        v-model="propertyData.description"
+                        type="text"
+                        class="mt-1 block w-full"
+                        autocomplete="description"
+                    />
+                </div>
             </div>
         </div>
         <!-- END Stock & Inventory -->
@@ -790,7 +790,6 @@ import '@uppy/drop-target/dist/style.css'
 import '@uppy/drag-drop/dist/style.css'
 import '@uppy/progress-bar/dist/style.css'
 
-
 export default {
     name: "CreateEditPropertyForm",
     components: {Alert, TextareaInput, InputError, InputLabel, PrimaryButton, ActionMessage, FormSection, TextInput, Dashboard},
@@ -809,7 +808,7 @@ export default {
                 //withCredentials: true,
                 headers: {
                     "Accept": "application/json",
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
                 },
                 endpoint: route("media.upload"),
                 formData: true,

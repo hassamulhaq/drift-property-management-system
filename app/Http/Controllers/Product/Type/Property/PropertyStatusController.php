@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Product\ProductProperty;
+namespace App\Http\Controllers\Product\Type\Property;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product\ProductProperty\ProductPropertyStatus;
 use Illuminate\Http\Request;
 
-class ProductPropertyStatusesController extends Controller
+class PropertyStatusController extends Controller
 {
     public function index()
     {

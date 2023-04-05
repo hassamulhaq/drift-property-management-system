@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Product;
+namespace App\Http\Controllers\Product\Type\Flat;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product\ProductFlat;
 use Illuminate\Http\Request;
 
-class ProductFlatsController extends Controller
+class ProductFlatController extends Controller
 {
     public function index()
     {

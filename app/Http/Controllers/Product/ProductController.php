@@ -11,7 +11,7 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class ProductsController extends Controller
+class ProductController extends Controller
 {
     public function __construct(protected ProductPropertyService $productPropertyService)
     {

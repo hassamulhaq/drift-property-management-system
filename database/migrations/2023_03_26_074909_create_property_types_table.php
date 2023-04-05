@@ -7,16 +7,16 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('product_property_features', function (Blueprint $table) {
+        Schema::create('property_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('property_id')->constrained('product_properties');
-            $table->foreignId('feature_id')->constrained('features');
+            $table->foreignId('property_id')->constrained('properties');
+            $table->foreignId('type_id')->constrained('types');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('product_property_features');
+        Schema::dropIfExists('property_types');
     }
 };

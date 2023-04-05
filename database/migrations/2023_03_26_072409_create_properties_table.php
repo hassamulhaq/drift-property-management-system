@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('product_properties', function (Blueprint $table) {
+        Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->uuid()->unique();
-            $table->foreignId('product_id')->unique()->constrained('product_properties')->cascadeOnDelete();
+            $table->foreignId('product_id')->unique()->constrained('products')->cascadeOnDelete();
             $table->string('title', 200);
             $table->string('slug')->unique();
             $table->string('sku')->unique();
@@ -49,7 +49,7 @@ return new class extends Migration {
             $table->string('epc_potential_rating')->nullable();
             $table->tinyInteger('status')->default(Product::PRODUCT_STATUS['draft'])->comment('0=draft, 1=published, 2=trashed');
             $table->timestamp('published_at')->nullable();
-            $table->foreignId('parent_id')->nullable()->constrained('product_properties');
+            $table->foreignId('parent_id')->nullable()->constrained('properties');
             $table->json('meta_data')->nullable();
             $table->timestamps();
         });
@@ -57,6 +57,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('product_properties');
+        Schema::dropIfExists('properties');
     }
 };

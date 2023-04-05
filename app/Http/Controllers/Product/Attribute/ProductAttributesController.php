@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Product\ProductAttribute;
+namespace App\Http\Controllers\Product\Attribute;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product\ProductAttribute\ProductAttribute;

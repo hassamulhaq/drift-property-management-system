@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('product_property_labels', function (Blueprint $table) {
+        Schema::create('property_labels', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('property_id')->constrained('product_properties');
+            $table->foreignId('property_id')->constrained('properties');
             $table->foreignId('label_id')->constrained('labels');
 
             $table->timestamps();
@@ -19,6 +19,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('product_property_labels');
+        Schema::dropIfExists('property_labels');
     }
 };

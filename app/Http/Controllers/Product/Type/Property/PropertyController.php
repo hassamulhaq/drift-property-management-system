@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Product;
+namespace App\Http\Controllers\Product\Type\Property;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductPropertyStoreRequest;
@@ -10,7 +10,7 @@ use App\Services\ProductPropertyService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class ProductPropertiesController extends Controller
+class PropertyController extends Controller
 {
     public function __construct(protected ProductPropertyService $productPropertyService)
     {
@@ -25,7 +25,7 @@ class ProductPropertiesController extends Controller
     {
         $collections = Collection::all();
 
-        return Inertia::render('Products/Property/Create', [
+        return Inertia::render('Products/Types/Properties/Create', [
             'collections' => $collections,
         ])->with(['response' => [
             'success' => true,

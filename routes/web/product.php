@@ -1,6 +1,7 @@
 <?php
 
-use \App\Http\Controllers\Product\ProductsController;
+use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Product\Type\Property\PropertyController;
 
 Route::prefix('admin')
     ->middleware('auth:sanctum')
@@ -9,7 +10,7 @@ Route::prefix('admin')
         Route::prefix('products')
             ->name('products.')
             ->group(function () {
-                Route::controller(ProductsController::class)
+                Route::controller(ProductController::class)
                     ->group(function () {
                         Route::get('/', 'index')->name('index');
                         Route::get('/create', 'create')->name('create');
@@ -22,7 +23,7 @@ Route::prefix('admin')
                     });
 
                 Route::prefix('types')->group(function () {
-                    Route::controller(ProductsController::class)
+                    Route::controller(PropertyController::class)
                         ->group(function () {
                             Route::prefix('property')
                                 ->name('property.')
@@ -37,7 +38,7 @@ Route::prefix('admin')
     });
 
 
-Route::controller(ProductsController::class)
+Route::controller(ProductController::class)
     ->prefix('products')
     ->name('products.')
     ->group(function () {
