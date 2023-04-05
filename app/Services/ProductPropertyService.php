@@ -13,9 +13,9 @@ class ProductPropertyService
     public function store($request): array
     {
         $published_at = Carbon::now()->toDateTimeString();
-        try {
-            \DB::beginTransaction();
 
+        \DB::beginTransaction();
+        try {
             $product = Product::create([
                 'type_id' => $request['type_id'] ?? Product::PRODUCT_TYPE_SIMPLE,
                 'sku' => $request['sku'],
@@ -101,7 +101,7 @@ class ProductPropertyService
             //\Event::dispatch(new ProductCreatedEvent($product));
 
             \DB::commit();
-            $this->response = [
+            $response = [
                 'success' => true,
                 'message' => 'Task Completed!',
                 'data' => [
@@ -111,7 +111,7 @@ class ProductPropertyService
             ];
         } catch (\Exception $e) {
             \DB::rollback();
-            $this->response = [
+            $response = [
                 'success' => false,
                 'message' => 'Something went wrong!',
                 'data' => [
@@ -123,6 +123,6 @@ class ProductPropertyService
             ];
         }
 
-        return $this->response;
+        return $response;
     }
 }

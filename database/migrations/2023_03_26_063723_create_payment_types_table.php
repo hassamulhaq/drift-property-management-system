@@ -9,9 +9,9 @@ return new class extends Migration {
     {
         Schema::create('payment_types', function (Blueprint $table) {
             $table->id();
-
-
-
+            $table->string('title')->nullable();
+            $table->foreignId('product_id')->nullable()->constrained('products');
+            $table->foreignId('type_id')->nullable()->constrained('types');
             $table->timestamps();
         });
     }

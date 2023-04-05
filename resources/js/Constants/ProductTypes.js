@@ -12,3 +12,9 @@ export const PRODUCT_TYPES = {
     PRODUCT_TYPE_EXTERNAL: 4,
     PRODUCT_TYPE_GROUPED: 5
 };
+
+export const PRODUCT_PROPERTY = {
+    TYPE_PROPERTY: 1,
+    TYPE_FLAT: 2,
+    TYPE_BOOK: 3
+};

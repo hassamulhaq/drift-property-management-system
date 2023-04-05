@@ -777,7 +777,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import {useForm} from "@inertiajs/vue3";
 import TextareaInput from "@/Components/TextareaInput.vue";
-import {PRODUCT_TYPES} from "@/Constants/ProductTypes";
+import {PRODUCT_PROPERTY} from "@/Constants/ProductTypes";
 import {PRODUCT_STATUS} from "@/Constants/Product";
 import Alert from "@/Components/Alert.vue";
 import Uppy from '@uppy/core'
@@ -887,7 +887,7 @@ export default {
         // })
 
         const propertyData = useForm({
-            product_type: PRODUCT_TYPES.PRODUCT_TYPE_PROPERTY,
+            product_type: PRODUCT_PROPERTY.TYPE_PROPERTY,
             title: props?.product?.property?.title || '',
             slug: props?.product?.property?.slug || '',
             short_description: props?.product?.property?.short_description || '',

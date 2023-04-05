@@ -18,5 +18,30 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        $this->call([
+            PermissionSeeder::class,
+            RoleSeeder::class,
+            UserSeeder::class,
+            ModuleSeeder::class,
+            CollectionSeeder::class,
+            LabelSeeder::class,
+            FeatureSeeder::class,
+            TypeSeeder::class,
+            TagSeeder::class,
+            CategorySeeder::class,
+            StatusSeeder::class,
+            MenuSeeder::class,
+            ProductTypeSeeder::class,
+            ProductSeeder::class,
+            CurrencySeeder::class,
+            CountrySeeder::class,
+            StateSeeder::class,
+            PaymentTypeSeeder::class,
+            PaymentMethodSeeder::class,
+            UserPaymentMethodSeeder::class,
+            PropertyTypeSeeder::class,
+            PropertyLabelSeeder::class
+        ]);
     }
 }

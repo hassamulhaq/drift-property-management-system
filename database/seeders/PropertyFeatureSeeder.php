@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class ProductPropertyTypeSeeder extends Seeder
+class PropertyFeatureSeeder extends Seeder
 {
     public function run(): void
     {

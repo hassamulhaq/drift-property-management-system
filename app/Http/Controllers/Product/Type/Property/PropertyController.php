@@ -36,6 +36,7 @@ class PropertyController extends Controller
     public function store(ProductPropertyStoreRequest $request)
     {
         $response = $this->productPropertyService->store($request->validated());
+        dd($response);
 
         return redirect()->back()->with([
             'response' => $response
