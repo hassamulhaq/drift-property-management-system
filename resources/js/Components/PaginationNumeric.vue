@@ -18,8 +18,8 @@
                         </li>
                         <li v-else>
                             <Link :href="link.url"
-                                  class="inline-flex items-center justify-center rounded-l leading-5 px-3.5 py-2 bg-white border border-slate-200 text-indigo-500"
-                                  :class="{ 'bg-blue-700 text-white': link.active }"
+                                  :class="{ '!bg-indigo-700 !text-white': link.active }"
+                                  class="mx-1.5 inline-flex items-center justify-center rounded-l leading-5 bg-white px-3.5 py-2 border border-slate-200 text-indigo-700"
                                   v-html="link.label"/>
                         </li>
                     </template>

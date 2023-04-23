@@ -20,13 +20,15 @@
                                 </div>
 
                                 <!-- Card Content -->
-                                <div class="grow flex flex-col p-5">
+                                <div class="grow flex flex-col p-3">
                                     <!-- Card body -->
                                     <div class="grow">
                                         <!-- Header -->
                                         <header class="mb-3">
                                             <h3 class="text-lg text-slate-800 font-semibold">
-                                                {{ product.product_property?.title }}
+                                                <Link :href="route('products.single-product', product?.id )">
+                                                    {{ product.product_property?.title }}
+                                                </Link>
                                             </h3>
                                         </header>
                                         <!-- Rating and price -->
