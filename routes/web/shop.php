@@ -11,3 +11,5 @@ Route::prefix('products')
     ->group(function () {
         Route::get('/{product:id}', [ProductController::class, 'singleProduct'])->name('single-product');
     });
+
+Route::post('add-to-cart', [ShopsController::class, 'addToCart'])->name('shops.add-to-cart');

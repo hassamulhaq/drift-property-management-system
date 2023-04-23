@@ -21,27 +21,8 @@ class ShopsController extends Controller
         ]);
     }
 
-    public function create()
+    public function addToCart(Request $request)
     {
-    }
-
-    public function store(Request $request)
-    {
-    }
-
-    public function show(Shop $shop)
-    {
-    }
-
-    public function edit(Shop $shop)
-    {
-    }
-
-    public function update(Request $request, Shop $shop)
-    {
-    }
-
-    public function destroy(Shop $shop)
-    {
+        dd($request->all());
     }
 }
