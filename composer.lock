@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c2277f2a208a81cb86bf44e9bdd26df3",
+    "content-hash": "f54ba52062fd569b2e41ae2c47503400",
     "packages": [
         {
             "name": "benjacho/belongs-to-many-field",

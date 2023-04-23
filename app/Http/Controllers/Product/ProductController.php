@@ -72,6 +72,7 @@ class ProductController extends Controller
 
     public function singleProduct(Product $product)
     {
+
         #Todo Single Product...
         return Inertia::render('Frontend/Shop/SingleProduct', ['product' => $product->load('productProperty')]);
     }
