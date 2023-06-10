@@ -22,13 +22,31 @@ class Product extends Model implements ProductInterface
     ];
 
     const PRODUCT_STATUS_DRAFT = 0;
-    const PRODUCT_STATUS_PUBLISHED = 1;
-    const PRODUCT_STATUS_TRASHED = 3;
+    const PRODUCT_STATUS_PUBLISH = 1;
+    const PRODUCT_STATUS_TRASH = 3;
+    const PRODUCT_STATUS_INHERIT = 4;
+
+    const PRODUCT_COMMENT_STATUS_OPEN = 'open';
+    const PRODUCT_COMMENT_STATUS_CLOSE = 'close';
+
+    const PRODUCT_PING_STATUS_OPEN = 'open';
+    const PRODUCT_PING_STATUS_CLOSE = 'close';
 
     const PRODUCT_STATUS = [
         'draft' => self::PRODUCT_STATUS_DRAFT,
-        'published' => self::PRODUCT_STATUS_PUBLISHED,
-        'trashed' => self::PRODUCT_STATUS_TRASHED
+        'published' => self::PRODUCT_STATUS_PUBLISH,
+        'trashed' => self::PRODUCT_STATUS_TRASH,
+        'inherit' => self::PRODUCT_STATUS_INHERIT,
+    ];
+
+    const PRODUCT_COMMENT_STATUS = [
+        'open' => self::PRODUCT_COMMENT_STATUS_OPEN,
+        'close' => self::PRODUCT_COMMENT_STATUS_CLOSE,
+    ];
+
+    const PRODUCT_PING_STATUS = [
+        'open' => self::PRODUCT_PING_STATUS_OPEN,
+        'close' => self::PRODUCT_PING_STATUS_CLOSE,
     ];
 
     const UNCATEGORIZED_CATEGORY_ID = 1;

@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             StateSeeder::class,
             PaymentTypeSeeder::class,
             PaymentMethodSeeder::class,
-            UserPaymentMethodSeeder::class,
+            //UserPaymentMethodSeeder::class,
             PropertyTypeSeeder::class,
             PropertyLabelSeeder::class
         ]);
