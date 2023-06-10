@@ -6,19 +6,46 @@ use App\Interfaces\ProductInterface;
 use App\Models\Global\Category\Category;
 use App\Models\Global\Collection\Collection;
 use App\Models\Product\ProductAttribute\ProductAttribute;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model implements ProductInterface
 {
+    use Sluggable;
     protected $casts = [
         'type' => 'string',
-        'sku' => 'string'
+        'sku' => 'string',
+        'created_at_gmt' => 'timestamp',
+        'updated_at_gmt' => 'timestamp'
     ];
     protected $fillable = [
-        'type_id',
+        'author_id',
+        'title',
+        'excerpt',
+        'slug',
+        'short_description',
+        'description',
+        'tags',
+        'product_number',
+        'price',
+        'second_price',
+        'price_prefix',
+        'price_postfix',
         'sku',
-        'meta_data',
-        'parent_id'
+        'status',
+        'comment_status',
+        'comment_count',
+        'ping_status',
+        'product_password',
+        'to_ping',
+        'pinged',
+        'menu_order',
+        'parent_id',
+        'type_id',
+        'featured',
+        'metadata',
+        'created_at_gmt',
+        'updated_at_gmt'
     ];
 
     const PRODUCT_STATUS_DRAFT = 0;
@@ -82,6 +109,20 @@ class Product extends Model implements ProductInterface
     ];
 
     const SKU_PREFIX = 'sku_';
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 
 
     public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsTo

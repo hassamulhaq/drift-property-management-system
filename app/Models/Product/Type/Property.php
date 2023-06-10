@@ -13,7 +13,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Property extends Model
 {
-    use Sluggable, HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia;
 
     const LOGGED_IN_TO_VIEW = false;
     protected $table = 'properties';
@@ -27,21 +27,21 @@ class Property extends Model
     protected $fillable = [
         'product_id',
         'uuid',
-        'title',
-        'slug',
-        'short_description',
-        'sku',
+        //'title',
+        //'slug',
+        //'short_description',
+        //'sku',
         'product_number',
         'stock_quantity',
         'backorders',
-        'featured',
+        //'featured',
         'new',
         'sold_individual',
-        'status',
-        'price',
-        'second_price',
-        'price_prefix',
-        'price_postfix',
+        //'status',
+        //'price',
+        //'second_price',
+        //'price_prefix',
+        //'price_postfix',
         'size',
         'size_prefix',
         'land',
@@ -68,7 +68,7 @@ class Property extends Model
         'energy_performance',
         'epc_current_rating',
         'epc_potential_rating',
-        'published_at'
+        //'published_at'
     ];
 
     protected static function boot()
@@ -80,20 +80,6 @@ class Property extends Model
                 $model->uuid = Uuid::uuid4()->toString();
             }
         });
-    }
-
-    /**
-     * Return the sluggable configuration array for this model.
-     *
-     * @return array
-     */
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'title'
-            ]
-        ];
     }
 
     public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

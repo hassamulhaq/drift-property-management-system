@@ -3,35 +3,22 @@
 namespace App\Services;
 
 use App\Helpers\Constant;
-use App\Models\Product\Product;
 use App\Models\Product\ProductAttribute\ProductAttribute;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class ProductPropertyService
 {
+    public function __construct(protected ProductService $productService)
+    {
+    }
+
     public function store($request): array
     {
-        $published_at = Carbon::now()->toDateTimeString();
-
         \DB::beginTransaction();
         try {
-            $product = Product::create([
-                'type_id' => $request['type_id'] ?? Product::PRODUCT_TYPE_SIMPLE,
-                'sku' => $request['sku'],
-                'meta_data' => $request['meta_data'] ?? null
-            ]);
+            $product = $this->productService->createProduct(data: $request);
             $productProperty = $product->productProperty()->create([
-                'product_id' => $product->id,
-                'title' => $request['title'],
-                'slug' => $request['slug'],
-                'short_description' => $request['short_description'],
-                'sku' => $request['sku'],
-                'product_number' => $request['product_number'],
-                'price' => $request['price'],
-                'second_price' => $request['second_price'],
-                'price_prefix' => $request['price_prefix'],
-                'price_postfix' => $request['price_postfix'],
                 'size' => $request['size'],
                 'size_prefix' => $request['size_prefix'],
                 'land' => $request['land'],
@@ -44,9 +31,7 @@ class ProductPropertyService
                 'map_address' => $request['map_address'],
                 'address' => $request['address'],
                 'zip' => $request['zip'],
-                'featured' => $request['featured'] ?? Product::IS_FEATURED['false'],
                 'logged_in_to_view' => $request['logged_in_to_view'],
-                'disclaimer' => $request['disclaimer'],
                 'virtual_tour' => $request['virtual_tour'],
                 'agent_display_option' => $request['agent_display_option'],
                 'attachments' => $request['attachments'],
@@ -57,13 +42,8 @@ class ProductPropertyService
                 'energy_performance' => $request['energy_performance'],
                 'epc_current_rating' => $request['epc_current_rating'],
                 'epc_potential_rating' => $request['epc_potential_rating'],
-                'rop_plan_duration' => $request['rop_plan_duration'],
-                'status' => $request['status'],
-                'tags' => $request['tags'] ?? '',
-                'description' => $request['description'] ?? '',
-                'published_at' => $published_at
+                'rop_plan_duration' => $request['rop_plan_duration']
             ]);
-
 
             if (array_key_exists('categories', $request)) {
                 $product->categories()->sync($request['categories']);

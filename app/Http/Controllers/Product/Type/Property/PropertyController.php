@@ -29,7 +29,7 @@ class PropertyController extends Controller
             'collections' => $collections,
         ])->with(['response' => [
             'success' => true,
-            'message' => ''
+            'message' => 'view loaded'
         ]]);
     }
 

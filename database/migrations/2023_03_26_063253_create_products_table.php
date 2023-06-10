@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->text('excerpt')->nullable();
             $table->string('slug')->unique();
             $table->string('short_description', 1000)->nullable();
+            $table->text('description')->nullable();
             $table->string('tags', 500)->nullable();
             $table->string('product_number')->nullable();
             $table->float('price', 12, 4)->nullable();
@@ -32,6 +33,7 @@ return new class extends Migration {
             $table->tinyInteger('menu_order')->default(0);
             $table->foreignId('parent_id')->nullable()->constrained('products');
             $table->foreignId('type_id')->constrained('types');
+            $table->tinyInteger('featured')->default(Product::IS_FEATURED['false'])->comment('1=featured');
             $table->json('metadata')->nullable();
             $table->timestamp('created_at_gmt')->nullable();
             $table->timestamp('updated_at_gmt')->nullable();

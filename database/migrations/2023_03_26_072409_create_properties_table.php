@@ -13,8 +13,8 @@ return new class extends Migration {
             $table->uuid()->unique();
             $table->foreignId('product_id')->unique()->constrained('products')->cascadeOnDelete();
             //$table->string('title', 200);
-            $table->string('slug')->unique();
-            $table->string('sku')->unique();
+            //$table->string('slug')->unique();
+            //$table->string('sku')->unique();
             //$table->string('short_description', 1000)->nullable();
             //$table->string('tags', 500)->nullable();
             //$table->string('product_number')->nullable();
@@ -34,7 +34,7 @@ return new class extends Migration {
             $table->string('map_address')->nullable();
             $table->string('address')->nullable();
             $table->string('zip')->nullable();
-            $table->tinyInteger('featured')->default(Product::IS_FEATURED['false'])->comment('1=featured');
+            //$table->tinyInteger('featured')->default(Product::IS_FEATURED['false'])->comment('1=featured');
             $table->tinyInteger('logged_in_to_view')->default(0);
             $table->string('disclaimer')->nullable();
             $table->string('virtual_tour')->nullable();
@@ -47,6 +47,7 @@ return new class extends Migration {
             $table->string('energy_performance')->nullable();
             $table->string('epc_current_rating')->nullable();
             $table->string('epc_potential_rating')->nullable();
+            $table->tinyInteger('rop_plan_duration')->default(1)->comment('rent on property plan duration');
             //$table->tinyInteger('status')->default(Product::PRODUCT_STATUS['draft'])->comment('0=draft, 1=published, 2=trashed');
             //$table->timestamp('published_at')->nullable();
             $table->foreignId('parent_id')->nullable()->constrained('properties');

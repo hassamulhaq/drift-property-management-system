@@ -891,6 +891,8 @@ export default {
             title: props?.product?.property?.title || '',
             slug: props?.product?.property?.slug || '',
             short_description: props?.product?.property?.short_description || '',
+            description: props?.product?.property?.description || '',
+            tags: props?.product?.property?.tags || '',
             price: props?.product?.property?.price || '',
             second_price: props?.product?.property?.second_price || '',
             price_prefix: props?.product?.property?.price_prefix || '',

@@ -11,9 +11,9 @@ class ProductPropertyStoreRequest extends FormRequest
         return [
             'product_type' => 'required|int',
             'title' => 'required|string|max:200',
-            'slug' => 'nullable|alpha_dash|unique:properties,slug',
+            'slug' => 'nullable|alpha_dash|unique:products,slug',
             'short_description' => 'nullable',
-            'sku' => 'required|string|max:200|alpha_dash|unique:products,sku|unique:properties,sku',
+            'sku' => 'required|string|max:200|alpha_dash|unique:products,sku',
             'mid_code' => 'nullable|alpha_dash',
             'product_number' => 'nullable|alpha_dash',
             'price' => 'required|numeric',
