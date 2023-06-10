@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('productsmeta', function (Blueprint $table) {
+        Schema::create('productmeta', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained('products');
             $table->string('meta_key', 255)->nullable();
@@ -18,6 +18,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('productsmeta');
+        Schema::dropIfExists('productmeta');
     }
 };
