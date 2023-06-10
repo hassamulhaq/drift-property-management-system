@@ -24,8 +24,19 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'email',
+        'phone',
+        'address',
+        'address2',
+        'city',
+        'state',
+        'zip',
+        'country',
+        'type'
     ];
 
     /**
@@ -56,16 +67,21 @@ class User extends Authenticatable
 //        'profile_photo_url',
     ];
 
+    const DEFAULT_IS_GUEST = 0;
 
-    const ROLE_GUEST = null; // used in migration. don't modify
-    const ROLE_SUPER_ADMIN = 1;
-    const ROLE_ADMIN = 2;
-    const ROLE_CUSTOMER = 3;
+    protected array $guard_name = ['api', 'web'];
 
-    const ROLE_GUEST_UUID = null;
-    const ROLE_SUPER_ADMIN_UUID = 'bcf18f0b-1c03-4038-9340-484fe2b63181';
-    const ROLE_ADMIN_UUID = 'dc15da7b-6b75-4b7f-958d-14e4f13c6f4e';
-    const ROLE_CUSTOMER_UUID = 'c2f96bbc-d048-48af-800c-a8f54b783268';
+    const USER_TYPE_SALE = 'sale';
+    const USER_TYPE_ROP = 'rop'; // Rent On Property
 
-    const DEFAULT_IS_GUEST = null;
+    const NATIONAL_SALE_DIRECTOR_USER_ID = 13;
+
+    const ROLE_SALE_REPRESENTATIVE_PERCENTAGE = 2;  // Sale Representative
+    const ROLE_ASSISTANT_SALE_MANAGER_PERCENTAGE = 0.5; // Assistant Sale Manager
+    const ROLE_SALE_MANAGER_PERCENTAGE = 0.3; // Sale Manager
+    const ROLE_BUSINESS_MANAGER_PERCENTAGE = 0.2; // Business Manager
+    const ROLE_GROUP_MANAGER_PERCENTAGE = 0.1; // Group Manager
+    const ROLE_ZONAL_MANAGER_PERCENTAGE = 0.01; // Zonal Manager
+    const ROLE_REGIONAL_MANAGER_PERCENTAGE = 0.02; // Regional Manager
+    const ROLE_NATIONAL_SALE_DIRECTOR_PERCENTAGE = 0; // National Sale Director (only 1 user. no one can create this user)
 }

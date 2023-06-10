@@ -8,13 +8,18 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('phone')->after('email')->nullable();
-            $table->string('country')->after('phone')->nullable();
-            $table->string('city')->after('country')->nullable();
-            $table->string('state')->after('city')->nullable();
-            $table->string('zip')->after('state')->nullable();
-            $table->string('address')->after('zip')->nullable();
+            $table->string('first_name', 100)->nullable()->after('email');
+            $table->string('last_name', 100)->nullable()->after('first_name');
+            $table->string('phone')->nullable()->after('last_name');
+            $table->string('country')->nullable()->after('phone');
+            $table->string('cnic')->nullable()->after('country');
+            $table->string('city')->nullable()->after('cnic');
+            $table->string('state')->nullable()->after('city');
+            $table->string('zip')->nullable()->after('state');
+            $table->string('address')->nullable()->after('zip');
             $table->string('address2')->nullable()->after('address');
+            $table->string('type', 15)->nullable()->after('address2')->comment('ROP, Sale');
+            $table->foreignId('reference_id')->nullable()->after('type')->constrained('users');
         });
     }
 
