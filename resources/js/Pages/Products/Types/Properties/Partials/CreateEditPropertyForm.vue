@@ -15,7 +15,7 @@
 
     <form @submit.prevent="storeProperty">
         <input type="hidden" name="status" id="status" value="published">
-        <input type="hidden" name="type_id" id="type_id" value="simple">
+        <input type="hidden" name="product_type" id="product_type" value="6">
 
         <div class="lg:flex gap-3 mb-3">
             <div class="w-full lg:w-3/4 bg-white shadow-none sm:rounded-lg border rounded-lg p-4">
@@ -78,16 +78,7 @@
                             </div>
                         </div>
                         <ul class="overflow-y-auto px-3 pb-3 h-48 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownCategoriesButton">
-                            <!--                            @if($categories)-->
-                            <!--                            @foreach($categories as $type)-->
-                            <!--                            <li>-->
-                            <!--                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">-->
-                            <!--                                    <input id="label-{{$type->id}}" type="checkbox" value="{{ $type->id }}" name="categories[]" class="w-4 h-4 text-indigo-600 bg-gray-100 rounded border-gray-300 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">-->
-                            <!--                                    <label for="label-{{$type->id}}" class="ml-2 mb-0 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{ $type->title }}</label>-->
-                            <!--                                </div>-->
-                            <!--                            </li>-->
-                            <!--                            @endforeach-->
-                            <!--                            @endif-->
+                            <li>No Data</li>
                         </ul>
                     </div>
                 </div>
@@ -144,9 +135,9 @@
                 </div>
                 <div class="mt-4 mb-2">
                     <!-- #MultiMediaDropzoneModal is in component media-form-multiple-dropzone -->
-                    <button type="button" data-modal-toggle="MultiMediaDropzoneModal" class="text-sm px-5 py-2.5 text-center block w-full text-gray-700 bg-gray-100 border border-gray-300 hover:bg-gray-200 focus:ring-2 focus:outline-none focus:ring-indigo-600 font-medium rounded-lg dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
-                        Upload Gallery
-                    </button>
+<!--                    <button type="button" data-modal-toggle="MultiMediaDropzoneModal" class="text-sm px-5 py-2.5 text-center block w-full text-gray-700 bg-gray-100 border border-gray-300 hover:bg-gray-200 focus:ring-2 focus:outline-none focus:ring-indigo-600 font-medium rounded-lg dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">-->
+<!--                        Upload Gallery-->
+<!--                    </button>-->
                 </div>
             </div>
         </div>
@@ -777,7 +768,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import {useForm} from "@inertiajs/vue3";
 import TextareaInput from "@/Components/TextareaInput.vue";
-import {PRODUCT_PROPERTY} from "@/Constants/ProductTypes";
+import {PRODUCT_TYPES} from "@/Constants/ProductTypes";
 import {PRODUCT_STATUS} from "@/Constants/Product";
 import Alert from "@/Components/Alert.vue";
 import Uppy from '@uppy/core'
@@ -828,7 +819,6 @@ export default {
         },
     },
     setup(props) {
-        console.log(props)
         let alert = ref({
             title: '',
             show: false,
@@ -887,48 +877,51 @@ export default {
         // })
 
         const propertyData = useForm({
-            product_type: PRODUCT_PROPERTY.TYPE_PROPERTY,
-            title: props?.product?.property?.title || '',
-            slug: props?.product?.property?.slug || '',
-            short_description: props?.product?.property?.short_description || '',
-            description: props?.product?.property?.description || '',
-            tags: props?.product?.property?.tags || '',
-            price: props?.product?.property?.price || '',
-            second_price: props?.product?.property?.second_price || '',
-            price_prefix: props?.product?.property?.price_prefix || '',
-            price_postfix: props?.product?.property?.price_postfix || '',
-            size: props?.product?.property?.size || '',
-            size_prefix: props?.product?.property?.size_prefix || '',
-            land: props?.product?.property?.land || '',
-            land_postfix: props?.product?.property?.land_postfix || '',
-            bedrooms: props?.product?.property?.bedrooms || '',
-            garage: props?.product?.property?.garage || '',
-            garage_size: props?.product?.property?.garage_size || '',
-            year: props?.product?.property?.year || '',
-            // property_id: props?.product?.property?.property_id || '',
-            map: props?.product?.property?.map || '',
-            map_address: props?.product?.property?.map_address || '',
-            address: props?.product?.property?.address || '',
-            zip: props?.product?.property?.zip || '',
+            product_type: PRODUCT_TYPES.PRODUCT_TYPE_PROPERTY,
+            title: props?.product?.property?.title || null,
+            slug: props?.product?.property?.slug || null,
+            short_description: props?.product?.property?.short_description || null,
+            description: props?.product?.property?.description || null,
+            tags: props?.product?.property?.tags || null,
+            price: props?.product?.property?.price || null,
+            second_price: props?.product?.property?.second_price || null,
+            price_prefix: props?.product?.property?.price_prefix || null,
+            price_postfix: props?.product?.property?.price_postfix || null,
+            size: props?.product?.property?.size || null,
+            size_prefix: props?.product?.property?.size_prefix || null,
+            land: props?.product?.property?.land || null,
+            land_postfix: props?.product?.property?.land_postfix || null,
+            bedrooms: props?.product?.property?.bedrooms || null,
+            garage: props?.product?.property?.garage || null,
+            garage_size: props?.product?.property?.garage_size || null,
+            year: props?.product?.property?.year || null,
+            map: props?.product?.property?.map || null,
+            map_address: props?.product?.property?.map_address || null,
+            address: props?.product?.property?.address || null,
+            zip: props?.product?.property?.zip || null,
             featured: props?.product?.property?.featured || 0,
             logged_in_to_view: props?.product?.property?.logged_in_to_view || 0,
-            disclaimer: props?.product?.property?.disclaimer || '',
-            virtual_tour: props?.product?.property?.virtual_tour || '',
-            agent_display_option: props?.product?.property?.agent_display_option || '',
-            attachments: props?.product?.property?.attachments || '',
-            private_note: props?.product?.property?.private_note || '',
-            energy_class: props?.product?.property?.energy_class || '',
-            energy_global_index: props?.product?.property?.energy_global_index || '',
-            renewable_energy_global_index: props?.product?.property?.renewable_energy_global_index || '',
-            energy_performance: props?.product?.property?.energy_performance || '',
-            epc_current_rating: props?.product?.property?.epc_current_rating || '',
-            epc_potential_rating: props?.product?.property?.epc_potential_rating || '',
+            disclaimer: props?.product?.property?.disclaimer || null,
+            virtual_tour: props?.product?.property?.virtual_tour || null,
+            agent_display_option: props?.product?.property?.agent_display_option || null,
+            attachments: props?.product?.property?.attachments || null,
+            private_note: props?.product?.property?.private_note || null,
+            energy_class: props?.product?.property?.energy_class || null,
+            energy_global_index: props?.product?.property?.energy_global_index || null,
+            renewable_energy_global_index: props?.product?.property?.renewable_energy_global_index || null,
+            energy_performance: props?.product?.property?.energy_performance || null,
+            epc_current_rating: props?.product?.property?.epc_current_rating || null,
+            epc_potential_rating: props?.product?.property?.epc_potential_rating || null,
             sku: props?.product?.property?.sku || '',
-            product_number: props?.product?.property?.product_number || '',
+            product_number: props?.product?.property?.product_number || null,
             stock_quantity: props?.product?.property?.stock_quantity || '',
-            backorders: props?.product?.property?.backorders || '',
-            rop_plan_duration: props?.product?.property?.rop_plan_duration || '',
-            status: props?.product?.property?.status || PRODUCT_STATUS.PUBLISHED,
+            backorders: props?.product?.property?.backorders || null,
+            rop_plan_duration: props?.product?.property?.rop_plan_duration || null,
+            status: props?.product?.property?.status || PRODUCT_STATUS.PUBLISH,
+            units: props?.product?.property?.units || null,
+            area_size: props?.product?.property?.units || null,
+            rooms: props?.product?.property?.units || null,
+            bathrooms: props?.product?.property?.units || null
         });
 
         const storeProperty = () => {

@@ -4,11 +4,11 @@ namespace App\Interfaces;
 
 use App\Models\Cart\Cart;
 use App\Models\Cart\CartItem;
-use App\Models\Product\ProductProperty;
+use App\Models\Product\Product;
 
 interface CartServiceInterface
 {
-    public function findProductByUuid(string $uuid): ProductProperty;
+    public function findProductByUuid(string $uuid): Product;
 
     public function findCartItemByCardIdAndProductId(int $cartId, int $productId): CartItem;
 
@@ -16,11 +16,11 @@ interface CartServiceInterface
 
     public function store(array $request);
 
-    public function newCart(ProductProperty $productProperty, array $request);
+    public function newCart(Product $product, array $request);
 
-    public function updateCart(Cart $cart, ProductProperty $productProperty, array $request);
+    public function updateCart(Cart $cart, Product $product, array $request);
 
-    public function createCartItem(Cart $cart, ProductProperty $productProperty, array $request): \Illuminate\Database\Eloquent\Model|CartItem;
+    public function createCartItem(Cart $cart, Product $product, array $request): \Illuminate\Database\Eloquent\Model|CartItem;
 
     // don't remove
     //public function updateCartItem(Cart $cart, CartItem $cartItem, Property $property, array $request): bool;

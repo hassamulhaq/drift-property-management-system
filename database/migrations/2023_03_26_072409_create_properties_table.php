@@ -10,7 +10,6 @@ return new class extends Migration {
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
-            $table->uuid()->unique();
             $table->foreignId('product_id')->unique()->constrained('products')->cascadeOnDelete();
             //$table->string('title', 200);
             //$table->string('slug')->unique();
@@ -20,8 +19,8 @@ return new class extends Migration {
             //$table->string('product_number')->nullable();
             //$table->float('price', 12, 4)->nullable();
             //$table->float('second_price', 12, 4)->nullable();
-            //$table->string('price_prefix')->nullable();
-            //$table->string('price_postfix')->nullable();
+            $table->string('price_prefix')->nullable()->comment('For example: Start from');
+            $table->string('price_postfix')->nullable()->comment('For example: Monthly');
             $table->string('size')->nullable();
             $table->string('size_prefix')->nullable();
             $table->string('land')->nullable();
@@ -51,7 +50,6 @@ return new class extends Migration {
             //$table->tinyInteger('status')->default(Product::PRODUCT_STATUS['draft'])->comment('0=draft, 1=published, 2=trashed');
             //$table->timestamp('published_at')->nullable();
             $table->foreignId('parent_id')->nullable()->constrained('properties');
-            $table->json('metadata')->nullable();
             $table->timestamps();
         });
     }

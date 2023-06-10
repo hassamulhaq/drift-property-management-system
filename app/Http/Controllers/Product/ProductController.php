@@ -5,15 +5,14 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductStoreRequest;
 use App\Models\Product\Product;
-use App\Models\Product\ProductProperty;
-use App\Services\ProductPropertyService;
+use App\Services\PropertyService;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function __construct(protected ProductPropertyService $productPropertyService)
+    public function __construct(protected PropertyService $propertyService)
     {
     }
 
@@ -38,7 +37,7 @@ class ProductController extends Controller
 
     public function store(ProductStoreRequest $request)
     {
-        $response = $this->productPropertyService->store($request->validated());
+        $response = $this->propertyService->store($request->validated());
 
         return redirect()->back()->with([
             'response' => $response
@@ -67,7 +66,7 @@ class ProductController extends Controller
 
     public function uniqueSlug(Request $request)
     {
-        return SlugService::createSlug(ProductProperty::class, 'slug', $request->input('title'), ['unique' => true]);
+        return SlugService::createSlug(Property::class, 'slug', $request->input('title'), ['unique' => true]);
     }
 
     public function singleProduct(Product $product)

@@ -4,10 +4,9 @@ namespace App\Services;
 
 use App\Helpers\Constant;
 use App\Models\Product\ProductAttribute\ProductAttribute;
-use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
-class ProductPropertyService
+class PropertyService
 {
     public function __construct(protected ProductService $productService)
     {
@@ -18,7 +17,9 @@ class ProductPropertyService
         \DB::beginTransaction();
         try {
             $product = $this->productService->createProduct(data: $request);
-            $productProperty = $product->productProperty()->create([
+            $property = $product->productProperty()->create([
+                'price_prefix' => $request['price_prefix'],
+                'price_postfix' => $request['price_postfix'],
                 'size' => $request['size'],
                 'size_prefix' => $request['size_prefix'],
                 'land' => $request['land'],
@@ -67,13 +68,13 @@ class ProductPropertyService
 
 
             if (array_key_exists('thumbnail', $request)) {
-                $productProperty->addMedia(storage_path(Constant::MEDIA_TMP_PATH . $request['thumbnail']))->toMediaCollection('thumbnail');
+                $property->addMedia(storage_path(Constant::MEDIA_TMP_PATH . $request['thumbnail']))->toMediaCollection('thumbnail');
             }
 
             // move media
             if (array_key_exists('gallery', $request)) {
                 foreach ($request['gallery'] as $file) {
-                    $productProperty->addMedia(storage_path(Constant::MEDIA_TMP_PATH . $file))->toMediaCollection('gallery');
+                    $property->addMedia(storage_path(Constant::MEDIA_TMP_PATH . $file))->toMediaCollection('gallery');
                 }
             }
             \DB::commit();

@@ -6,8 +6,10 @@ use App\Interfaces\ProductInterface;
 use App\Models\Global\Category\Category;
 use App\Models\Global\Collection\Collection;
 use App\Models\Product\ProductAttribute\ProductAttribute;
+use App\Models\Product\Type\Property;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Ramsey\Uuid\Uuid;
 
 class Product extends Model implements ProductInterface
 {
@@ -19,6 +21,7 @@ class Product extends Model implements ProductInterface
         'updated_at_gmt' => 'timestamp'
     ];
     protected $fillable = [
+        'uuid',
         'author_id',
         'title',
         'excerpt',
@@ -29,8 +32,8 @@ class Product extends Model implements ProductInterface
         'product_number',
         'price',
         'second_price',
-        'price_prefix',
-        'price_postfix',
+        //'price_prefix',
+        //'price_postfix',
         'sku',
         'status',
         'comment_status',
@@ -41,9 +44,13 @@ class Product extends Model implements ProductInterface
         'pinged',
         'menu_order',
         'parent_id',
+        'product_type',
         'type_id',
         'featured',
         'metadata',
+        'stock_quantity',
+        'backorders',
+        'sold_individual',
         'created_at_gmt',
         'updated_at_gmt'
     ];
@@ -85,6 +92,7 @@ class Product extends Model implements ProductInterface
     const PRODUCT_TYPE_VARIABLE = 3;
     const PRODUCT_TYPE_EXTERNAL = 4;
     const PRODUCT_TYPE_GROUPED = 5;
+    const PRODUCT_TYPE_PROPERTY = 6;
 
     const PLACEHOLDER_IMAGE = [
         'path' => 'images/system/placeholder_image.jpg',
@@ -124,6 +132,17 @@ class Product extends Model implements ProductInterface
         ];
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($model) {
+            if (empty($model->uuid)) {
+                $model->uuid = Uuid::uuid4()->toString();
+            }
+        });
+    }
+
 
     public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -142,7 +161,7 @@ class Product extends Model implements ProductInterface
 
     public function thumbnail(): \Illuminate\Database\Eloquent\Relations\MorphOne
     {
-        return $this->morphOne(ProductProperty::class);
+        return $this->morphOne(Property::class);
     }
 
     // used in factory
@@ -154,6 +173,6 @@ class Product extends Model implements ProductInterface
 
     public function productProperty(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(ProductProperty::class, 'product_id');
+        return $this->hasOne(Property::class, 'product_id');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Product\Product;
+use Ramsey\Uuid\Uuid;
 
 class ProductService
 {
@@ -20,8 +21,6 @@ class ProductService
             'product_number' => $data['product_number'],
             'price' => $data['price'],
             'second_price' => $data['second_price'],
-            'price_prefix' => $data['price_prefix'],
-            'price_postfix' => $data['price_postfix'],
             'sku' => $data['sku'],
             'status' => $data['status'],
             'comment_status' => $data['comment_status'] ?? Product::PRODUCT_PING_STATUS_OPEN,
@@ -32,7 +31,7 @@ class ProductService
             'pinged' => $data['pinged'] ?? 'none',
             'menu_order' => $data['menu_order'] ?? 0,
             'featured' => $data['featured'] ?? Product::IS_FEATURED['false'],
-            'type_id' => $data['type_id'] ?? Product::PRODUCT_TYPE_SIMPLE,
+            'type_id' => $data['product_type'] ?? Product::PRODUCT_TYPE_PROPERTY,
             'metadata' => $data['meta_data'] ?? null,
             'created_at_gmt' => now()->toDateTimeString(),
             'updated_at_gmt' => now()->toDateTimeString()

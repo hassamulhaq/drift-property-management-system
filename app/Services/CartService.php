@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Interfaces\CartServiceInterface;
 use App\Models\Cart\Cart;
 use App\Models\Cart\CartItem;
+use App\Models\Product\Product;
 use App\Models\Product\ProductProperty;
 use App\Traits\CartTrait;
 use App\Traits\UserHelperTrait;
@@ -78,12 +79,12 @@ class CartService implements CartServiceInterface
         return $this->response;
     }
 
-    public function findProductByUuid($uuid): ProductProperty
+    public function findProductByUuid($uuid): Product
     {
-        return ProductProperty::whereUuid($uuid)->first();
+        return Product::whereUuid($uuid)->first();
     }
 
-    public function newCart(ProductProperty $productProperty, $request): array
+    public function newCart(Product $product, $request): array
     {
         $cart = Cart::create([
             'user_id' => $this->getUserOrGuestId(),
@@ -100,7 +101,7 @@ class CartService implements CartServiceInterface
         \Session::put('cart.cart_hash', $cart->cart_hash);
 
         // entry in cart_items
-        $newCartItem = $this->createCartItem($cart, $productProperty, $request);
+        $newCartItem = $this->createCartItem($cart, $product, $request);
 
         // update cart after entry in cart_items
         $is_updated = $this->updateCartAfterInsertingCartItems($cart, $newCartItem);
@@ -113,26 +114,26 @@ class CartService implements CartServiceInterface
         return $this->response = [
             'success' => true,
             'message' => __('cart.product_added_to_cart'),
-            'data' => ["Item ({$productProperty->title}) is added to cart!"]
+            'data' => ["Item ({$product->title}) is added to cart!"]
         ];
     }
 
-    public function createCartItem(Cart $cart, ProductProperty $productProperty, array $request): \Illuminate\Database\Eloquent\Model|CartItem
+    public function createCartItem(Cart $cart, Product $product, array $request): \Illuminate\Database\Eloquent\Model|CartItem
     {
         return $cart->cartItems()->create([
-            'product_id' => (int)$productProperty->product_id,
+            'product_id' => (int)$product->product_id,
             'quantity' => (int)$request['quantity'],
-            'sku' => (string)$productProperty->sku,
-            'weight' => (float)$productProperty->weight,
-            'total_weight' => (float)$productProperty->weight * $request['quantity'],
+            'sku' => (string)$product->sku,
+            'weight' => (float)$product->weight,
+            'total_weight' => (float)$product->weight * $request['quantity'],
             'item_count' => (int)1, // on create item_count is 1, on update value may be different
             //'price' => (float) $this->calcAddVatToAmount($property->price, VAT_Helper::VAT_PERCENTAGE),
-            'price' => (float)$productProperty->price,
-            'base_price' => (float)$productProperty->price,
-            'total' => (float)$this->calcAddVatToAmount($productProperty->price * $request['quantity'], VAT_PERCENTAGE),
-            'base_total' => (float)$productProperty->price * $request['quantity'],
+            'price' => (float)$product->price,
+            'base_price' => (float)$product->price,
+            'total' => (float)$this->calcAddVatToAmount($product->price * $request['quantity'], VAT_PERCENTAGE),
+            'base_total' => (float)$product->price * $request['quantity'],
             'tax_percent' => VAT_PERCENTAGE,
-            'tax_amount' => $this->calcVatAddedValue($productProperty->price * $request['quantity'], VAT_PERCENTAGE),
+            'tax_amount' => $this->calcVatAddedValue($product->price * $request['quantity'], VAT_PERCENTAGE),
             'discount_percent' => 0,
             'discount_amount' => 0
         ]);
@@ -154,11 +155,11 @@ class CartService implements CartServiceInterface
         ]);
     }
 
-    public function updateCart(Cart $cart, ProductProperty $productProperty, $request): array
+    public function updateCart(Cart $cart, Product $product, $request): array
     {
         //$cartItem = $this->findCartItemByCardIdAndProductId($cart->id, $property->id);
 
-        $newCartItem = $this->createCartItem($cart, $productProperty, $request);
+        $newCartItem = $this->createCartItem($cart, $product, $request);
 
         // update cart after entry in cart_items
         $is_updated = $this->updateCartAfterInsertingCartItems($cart, $newCartItem);
@@ -189,7 +190,7 @@ class CartService implements CartServiceInterface
         return $this->response = [
             'success' => true,
             'message' => __('cart.product_added_to_cart'),
-            'data' => ["Item {$productProperty->title} is added to cart!", "Cart updated"]
+            'data' => ["Item {$product->title} is added to cart!", "Cart updated"]
         ];
     }
 

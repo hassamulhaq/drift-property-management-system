@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Product\Type\Property;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductPropertyStoreRequest;
 use App\Models\Global\Collection\Collection;
-use App\Models\Product\ProductProperty;
-use App\Services\ProductPropertyService;
+use App\Models\Product\Type\Property;
+use App\Services\PropertyService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class PropertyController extends Controller
 {
-    public function __construct(protected ProductPropertyService $productPropertyService)
+    public function __construct(protected PropertyService $propertyService)
     {
     }
 
@@ -35,26 +35,26 @@ class PropertyController extends Controller
 
     public function store(ProductPropertyStoreRequest $request)
     {
-        $response = $this->productPropertyService->store($request->validated());
+        $response = $this->propertyService->store($request->validated());
 
         return redirect()->back()->with([
             'response' => $response
         ]);
     }
 
-    public function show(ProductProperty $productProperty)
+    public function show(Property $property)
     {
     }
 
-    public function edit(ProductProperty $productProperty)
+    public function edit(Property $property)
     {
     }
 
-    public function update(Request $request, ProductProperty $productProperty)
+    public function update(Request $request, Property $property)
     {
     }
 
-    public function destroy(ProductProperty $productProperty)
+    public function destroy(Property $property)
     {
     }
 }

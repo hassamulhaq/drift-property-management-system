@@ -10,6 +10,7 @@ return new class extends Migration {
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->uuid()->unique();
             $table->foreignId('author_id')->constrained('users');
             $table->string('title', 200);
             $table->text('excerpt')->nullable();
@@ -20,8 +21,6 @@ return new class extends Migration {
             $table->string('product_number')->nullable();
             $table->float('price', 12, 4)->nullable();
             $table->float('second_price', 12, 4)->nullable();
-            $table->string('price_prefix')->nullable();
-            $table->string('price_postfix')->nullable();
             $table->string('sku', 200);
             $table->tinyInteger('status')->default(Product::PRODUCT_STATUS['draft'])->comment('0=draft, 1=publish, 2=trash, 3=inherit');
             $table->string('comment_status', 20)->default(Product::PRODUCT_COMMENT_STATUS['open']);

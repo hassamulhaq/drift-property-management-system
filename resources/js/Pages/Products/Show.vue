@@ -148,7 +148,9 @@ import { reactive, onMounted, ref } from "vue";
 
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css";
-import DriftAppLayout from "@/Layouts/DriftAppLayout.vue"; // Optional theme CSS
+import DriftAppLayout from "@/Layouts/DriftAppLayout.vue";
+import {PRODUCT_STATUS_LABEL, PRODUCT_TYPES_LABEL} from "@/Constants/ProductTypes";
+import ProductEditButton from "@/Components/Products/ProductEditButton.vue"; // Optional theme CSS
 
 export default {
     name: "Show",
@@ -177,15 +179,16 @@ export default {
         // Each Column Definition results in one Column.
         const columnDefs = reactive({
             value: [
-                { headerName: "Title", field: "title", width: 220},
+                {headerName: "Type", field: "type_id"},
+                {headerName: "Title", field: "title", width: 220},
                 // { headerName: "Slug", field: "slug"},
-                { headerName: "SKU", field: "sku", width: 164, pinned: 'left'},
+                {headerName: "SKU", field: "sku", width: 150, pinned: 'left'},
                 // { headerName: "Short Description", field: "short_description"},
                 // { headerName: "Tags", field: "tags"},
-                { headerName: "Product Number", field: "product_number"},
-                { headerName: "Price Prefix", field: "price_prefix"},
-                { headerName: "Price", field: "price"},
-                { headerName: "Second Price", field: "second_price"},
+                {headerName: "Product Number", field: "product_number"},
+                //{ headerName: "Price Prefix", field: "price_prefix"},
+                {headerName: "Price", field: "price"},
+                {headerName: "Second Price", field: "second_price"},
                 // { headerName: "Price Postfix", field: "price_postfix"},
                 // { headerName: "Size", field: "size"},
                 // { headerName: "Size Prefix", field: "size_prefix"},
@@ -194,13 +197,13 @@ export default {
                 // { headerName: "Bedrooms", field: "bedrooms"},
                 // { headerName: "Garage", field: "garage"},
                 // { headerName: "Garage Size", field: "garage_size"},
-                { headerName: "Year", field: "year"},
-                { headerName: "Property Id", field: "property_id"},
+                //{ headerName: "Year", field: "year"},
+                {headerName: "Product No.", field: "product_number"},
                 // { headerName: "Map", field: "map"},
                 // { headerName: "Map Address", field: "map_address"},
                 // { headerName: "Address", field: "address"},
-                { headerName: "Zip", field: "zip"},
-                { headerName: "Featured", field: "featured"},
+                //{ headerName: "Zip", field: "zip"},
+                {headerName: "Featured", field: "featured"},
                 // { headerName: "Logged_in_to_view", field: "logged_in_to_view"},
                 // { headerName: "Disclaimer", field: "disclaimer"},
                 // { headerName: "Virtual_tour", field: "virtual_tour"},
@@ -213,17 +216,25 @@ export default {
                 // { headerName: "Energy_performance", field: "energy_performance"},
                 // { headerName: "Epc_current_rating", field: "epc_current_rating"},
                 // { headerName: "Epc_potential_rating", field: "epc_potential_rating"},
-                { headerName: "Status", field: "status"},
-                { headerName: "Property Type", field: "property_type_id"},
-                { headerName: "Property Status", field: "property_status_id"},
+                {headerName: "Status", field: "status"},
                 // { headerName: "Features", field: "features"},
                 // { headerName: "Property_label_id", field: "property_label_id"},
                 // { headerName: "Country_id", field: "country_id"},
-                { headerName: "State", field: "state_id"},
-                { headerName: "City", field: "city_id"},
-                { headerName: "Area", field: "area_id"},
-                { headerName: "Parent", field: "parent_id"},
-                { headerName: "Published at", field: "published_at"},
+                //{ headerName: "State", field: "state_id"},
+                //{ headerName: "City", field: "city_id"},
+                //{ headerName: "Area", field: "area_id"},
+                //{ headerName: "Parent", field: "parent_id"},
+                {headerName: "Published At", field: "created_at"},
+                {
+                    headerName: "Action",
+                    field: "edit_product",
+                    cellRenderer: ProductEditButton,
+                    cellRendererParams: {
+                        clicked: function(field) {
+                            alert(`${field} was clicked`);
+                        }
+                    },
+                },
                 // { headerName: "Metadata", field: "meta_data"}
             ],
         });
@@ -240,8 +251,19 @@ export default {
             wrapHeaderText: true,
             autoHeaderHeight: true,
         };
-        rowData.value = props?.products?.map((property) => {
-            return property?.product_property
+        rowData.value = props?.products?.map((product) => {
+            return {
+                'sku': product.sku,
+                'type_id': PRODUCT_TYPES_LABEL[product.type_id],
+                'title': product.title,
+                'product_number': product.product_number,
+                'price': product.price,
+                'second_price': product.second_price,
+                'featured': product.featured || 0,
+                'status': PRODUCT_STATUS_LABEL[product.status],
+                'created_at': new Date(product.created_at).toDateString(),
+                'edit_product': product.id
+            }
         });
 
         return {
