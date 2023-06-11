@@ -45,3 +45,4 @@ require __DIR__.'/web/shop.php';
 require __DIR__.'/web/category.php';
 require __DIR__.'/web/collection.php';
 require __DIR__.'/web/customer.php';
+require __DIR__.'/web/user-route.php';

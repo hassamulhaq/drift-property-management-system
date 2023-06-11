@@ -53,7 +53,10 @@
                                 </div>
                             </li>
                             <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 bg-gray-200">
-                                <Link :href="route('admin.products.index')">Product</Link>
+                                <Link :href="route('admin.products.index')">Products</Link>
+                            </li>
+                            <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 bg-gray-200">
+                                <Link :href="route('admin.products.index')">Users</Link>
                             </li>
                             <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 bg-gray-200">
                                 <Link :href="route('shop')">Shop</Link>
