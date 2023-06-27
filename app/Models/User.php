@@ -3,10 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\SendOtpNotification;
+use Exception;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -36,7 +39,10 @@ class User extends Authenticatable
         'state',
         'zip',
         'country',
-        'type'
+        'type',
+        'two_factor_enabled',
+        'two_factor_code',
+        'two_factor_expires_at'
     ];
 
     /**
@@ -56,6 +62,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'two_factor_expires_at' => 'datetime'
     ];
 
     /**
@@ -84,4 +91,71 @@ class User extends Authenticatable
     const ROLE_ZONAL_MANAGER_PERCENTAGE = 0.01; // Zonal Manager
     const ROLE_REGIONAL_MANAGER_PERCENTAGE = 0.02; // Regional Manager
     const ROLE_NATIONAL_SALE_DIRECTOR_PERCENTAGE = 0; // National Sale Director (only 1 user. no one can create this user)
+
+    /**
+     * @throws Exception
+     */
+    public function setOtp(): void
+    {
+        $otpLength = (int) config('drift-pms.otp_length');
+        $otpExpiryMinutes = (int) config('drift-pms.otp_expiry_minutes');
+        $this->otp = substr(bin2hex(random_bytes($otpLength)), 0, $otpLength);
+        $expiry = now()->addMinutes($otpExpiryMinutes);
+        $this->update([
+            'two_factor_code' => encrypt($this->otp),
+            'two_factor_expires_at' => $expiry,
+        ]);
+        $this->sendOtpNotification();
+    }
+
+    /**
+     * Sends a notification containing the OTP code to the user
+     */
+    private function sendOtpNotification(): void
+    {
+        Log::info('in notification section');
+        if (! $this->otp) {
+            if ($this->two_factor_code && (now() < $this->two_factor_expires_at)) {
+                $this->otp = decrypt($this->two_factor_code);
+            }
+        }
+
+        if ($this->otp) {
+            Log::info('in notify');
+            $this->notify(new SendOtpNotification());
+        }
+    }
+
+    /**
+     * Returns true if the user
+     * a) does not have TFA enabled, or
+     * b) has tfa enabled and has entered an OTP code that matches and has not expired
+     * A new OTP code is generated if no OTP entered and current OTP expiry has at least 5 minutes remaining
+     * @throws Exception
+     */
+    public function checkTFA(string $otpCode = null): bool
+    {
+        Log::info('checkTFA');
+        Log::info($otpCode);
+        if (! $this->two_factor_enabled) {
+            Log::info('two_factor_enabled');
+            return true;
+        }
+
+        if (! $otpCode) {
+            Log::info('!$otpCode');
+            if (! $this->two_factor_expires_at  || ($this->two_factor_expires_at < now()->addMinutes(5))) {
+                $this->setOtp();
+            }
+        }
+
+        if ($otpCode && (now() < $this->two_factor_expires_at)) {
+            Log::info('$otpCode');
+            if ($otpCode == decrypt($this->two_factor_code)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

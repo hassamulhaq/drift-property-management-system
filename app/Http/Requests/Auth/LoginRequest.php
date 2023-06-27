@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class LoginRequest extends FormRequest
 {
@@ -81,5 +83,18 @@ class LoginRequest extends FormRequest
     public function throttleKey(): string
     {
         return Str::transliterate(Str::lower($this->input('email')).'|'.$this->ip());
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.*
+     * @param Validator $validator
+     * @return array
+     */
+    protected function failedValidation(Validator $validator): array
+    {
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'errors' => $validator->errors(),
+        ], 422));
     }
 }
