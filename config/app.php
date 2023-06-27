@@ -197,6 +197,9 @@ return [
         App\Providers\NovaServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        App\Providers\Auth\TwoFactorVerificationServiceProvider::class,
+
+        \App\Providers\Auth\TwoFactorVerificationServiceProvider::class
     ],
 
     /*
