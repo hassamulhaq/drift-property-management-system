@@ -9,6 +9,10 @@
 import {computed} from "vue";
 import {cva} from "class-variance-authority";
 import CloseIcon from "@/Icons/CloseIcon.vue";
+import WarningIcon from "@/Components/Icons/WarningIcon.vue";
+import SuccessIcon from "@/Components/Icons/SuccessIcon.vue";
+import DangerIcon from "@/Components/Icons/DangerIcon.vue";
+import InfoIcon from "@/Components/Icons/InfoIcon.vue";
 
 const props = defineProps({
     intent: {
@@ -107,10 +111,10 @@ const closeButtonClass = computed(() => {
 
 const iconComponent = computed(() => {
     const icons = {
-        success: "",
-        warning: "",
-        danger: "",
-        info: "",
+        success: SuccessIcon,
+        warning: WarningIcon,
+        danger: DangerIcon,
+        info: InfoIcon,
     };
 
     return icons[props.intent];

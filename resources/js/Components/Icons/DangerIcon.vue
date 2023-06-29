@@ -1,0 +1,13 @@
+<template>
+    <svg width="800px" height="800px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--emojione" preserveAspectRatio="xMidYMid meet"><path fill="#ed4c5c" d="M32 2L2 62h60z"></path></svg>
+</template>
+
+<script>
+export default {
+    name: "DangerIcon"
+}
+</script>
+
+<style scoped>
+
+</style>
