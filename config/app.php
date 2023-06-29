@@ -199,7 +199,8 @@ return [
 
         App\Providers\Auth\TwoFactorVerificationServiceProvider::class,
 
-        \App\Providers\Auth\TwoFactorVerificationServiceProvider::class
+        \App\Providers\Auth\TwoFactorVerificationServiceProvider::class,
+        App\Providers\UserServiceProvider::class
     ],
 
     /*

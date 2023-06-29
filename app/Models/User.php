@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use App\Notifications\SendOtpNotification;
 use Exception;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -73,6 +73,14 @@ class User extends Authenticatable
     protected $appends = [
 //        'profile_photo_url',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->name = strtolower($model->first_name) . '-' . strtolower($model->last_name) . rand(10, 99);
+        });
+    }
 
     const DEFAULT_IS_GUEST = 0;
 
