@@ -42,7 +42,8 @@ class User extends Authenticatable
         'type',
         'two_factor_enabled',
         'two_factor_code',
-        'two_factor_expires_at'
+        'two_factor_expires_at',
+        'parent_id'
     ];
 
     /**
@@ -165,5 +166,15 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+
+    public function lower_level_roles(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(User::class, 'parent_id', 'id');
+    }
+
+    public function upper_level_roles()
+    {
+
     }
 }

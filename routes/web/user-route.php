@@ -1,6 +1,7 @@
 <?php
 
 use \App\Http\Controllers\UserController;
+use \App\Http\Controllers\User\UserTeamController;
 
 Route::prefix('admin')
     ->middleware(['auth:sanctum', 'verified'])
@@ -16,6 +17,7 @@ Route::prefix('admin')
                         Route::post('store', 'store')->name('store');
                         Route::post('update', 'update')->name('update');
                     });
+                Route::resource('teams', UserTeamController::class);
             });
     });
 
