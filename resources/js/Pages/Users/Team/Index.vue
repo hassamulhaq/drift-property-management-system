@@ -111,7 +111,7 @@ export default {
             const parent = `${
                 user.first_name +
                 ' ' + ((user.last_name !== null) ? user.last_name : '') +
-                '- (' + user.roles[0].name + ') '
+                '- (' + user.roles[0]?.name + ') '
             }`;
             const child = `${
                 (user?.lower_level_roles.length > 0) ? user?.lower_level_roles[0]?.first_name +'- ('+ user?.lower_level_roles[0]?.email+')' : '-'
