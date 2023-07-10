@@ -18,6 +18,13 @@ Route::prefix('admin')
                         Route::post('update', 'update')->name('update');
                     });
                 Route::resource('teams', UserTeamController::class);
+
+                Route::post('get-upper-level-users', [UserTeamController::class, 'getUpperLevelUsers'])
+                    ->name('upper-level-users');
+
+                Route::post('get-lower-level-users', [UserTeamController::class, 'getLowerLevelUsers'])
+                    ->name('lower-level-users');
+
             });
     });
 

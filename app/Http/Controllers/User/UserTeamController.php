@@ -5,12 +5,15 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
+use App\Traits\UserLevelTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class UserTeamController extends Controller
 {
+    use UserLevelTrait;
+
     public function index()
     {
         $users = User::query()
@@ -41,6 +44,11 @@ class UserTeamController extends Controller
 
     public function create()
     {
+        $users = $this->getUpperLevelUsers();
+
+        return Inertia::render('Users/Team/CreateTeam', [
+            'users' => $users
+        ]);
     }
 
     public function store(Request $request)
@@ -61,5 +69,14 @@ class UserTeamController extends Controller
 
     public function destroy(User $user)
     {
+    }
+
+    public function getUpperLevelUsers()
+    {
+        return $this->upperLevelUsers();
+    }
+    public function getLowerLevelUsers(Request $request)
+    {
+        return $this->lowerLevelUsers(request: $request);
     }
 }

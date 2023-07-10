@@ -59,6 +59,9 @@
                                 <Link :href="route('admin.users.index')">Users</Link>
                             </li>
                             <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 bg-gray-200">
+                                <Link :href="route('admin.users.teams.index')">Team</Link>
+                            </li>
+                            <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 bg-gray-200">
                                 <Link :href="route('shop')">Shop</Link>
                             </li>
                         </ul>
