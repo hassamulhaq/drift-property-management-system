@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Users\LowerLevelUsersRequest;
+use App\Http\Resources\User\LowerLevelUsersResource;
 use App\Models\Role;
 use App\Models\User;
 use App\Traits\UserLevelTrait;
@@ -75,8 +77,12 @@ class UserTeamController extends Controller
     {
         return $this->upperLevelUsers();
     }
-    public function getLowerLevelUsers(Request $request)
+    public function getLowerLevelUsers(Request $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        return $this->lowerLevelUsers(request: $request);
+        $response = $this->lowerLevelUsers(userId: $request->input('userId'));
+
+        //LowerLevelUsersResource::make()
+
+        return LowerLevelUsersResource::collection($response['data'])->additional([$response['success'], $response['message']]);
     }
 }

@@ -27,23 +27,24 @@ trait UserLevelTrait
             ->get();
     }
 
-    public function lowerLevelUsers(Request $request): bool|string
+    public function lowerLevelUsers($userId): array
     {
-        $userId = $request->input('user_id');
         $user = User::query()->with('roles')
             ->findOrFail($userId);
         if ($user->roles()->count() !== 1) {
-            return json_encode([
+            return [
                 'success' => false,
-                'message' => 'User have multiple roles.'
-            ]);
+                'message' => 'User have multiple roles.',
+                'data' => []
+            ];
         }
         $lowerRoleIds = Role::getLowerRoles($user->roles()->first()->id);
         if (empty($lowerRoleIds)) {
-            return json_encode([
+            return [
                 'success' => false,
-                'message' => 'No record found!'
-            ]);
+                'message' => 'No record found!',
+                'data' => []
+            ];
         }
 
         $lowerLevelIds = User::query()
@@ -56,10 +57,10 @@ trait UserLevelTrait
             ->whereNull('parent_id')
             ->get();
 
-        return json_encode([
+        return [
             'success' => true,
             'message' => 'Record found',
             'data' => $lowerLevelIds
-        ]);
+        ];
     }
 }
